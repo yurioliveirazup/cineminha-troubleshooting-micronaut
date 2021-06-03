@@ -7,12 +7,12 @@ import io.micronaut.http.annotation.Post
 import me.oyurimatheus.cineminha.filmes.SessaoRepository
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
-import javax.validation.constraints.NotNull
 import javax.validation.constraints.Positive
 
 @Controller("/api/ingressos")
 class CompraIngressoController(val sessaoRepository: SessaoRepository,
-                               val ingressoRepository: IngressoRepository
+                               val ingressoRepository: IngressoRepository,
+                               val emailClient: EmailClient
 ) {
 
 
@@ -22,13 +22,19 @@ class CompraIngressoController(val sessaoRepository: SessaoRepository,
 
         val salvo = ingressoRepository.save(ingresso)
 
+        val email = EmailRequest(remetente = "ingressos@cineminha.com.br",
+                                 destinatario = salvo.email,
+                                 corpo = "Seu novo ingresso com id ${salvo.id}"
+        )
+        emailClient.envia(email)
+
         val uri = HttpResponse.uri("/api/ingressos/${salvo.id}")
         return HttpResponse.created(uri)
     }
 }
 
-data class NovoIngressoRequest(@field:Positive val sessaoId: Long,
-                               @field:NotNull val tipo: Tipo,
+data class NovoIngressoRequest(@Positive val sessaoId: Long,
+                               @field:NotBlank val tipo: Tipo,
                                @field:Email @field:NotBlank val email: String) {
 
     fun paraIngresso(sessaoRepository: SessaoRepository) : Ingresso {
