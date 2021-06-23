@@ -1,5 +1,6 @@
 package me.oyurimatheus.cineminha.ingressos
 
+import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.client.annotation.Client
 
@@ -7,10 +8,16 @@ import io.micronaut.http.client.annotation.Client
 interface EmailClient {
 
     @Post
-    fun envia(emailRequest: EmailRequest)
+    fun envia(@Body emailRequest: EmailRequest)
 }
 
 class EmailRequest(val remetente: String,
                    val destinatario: String,
                    val corpo: String
-)
+) {
+    override fun toString(): String {
+        return "EmailRequest(remetente='$remetente', destinatario='$destinatario', corpo='$corpo')"
+    }
+}
+
+
