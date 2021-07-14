@@ -6,9 +6,10 @@ import java.math.RoundingMode
 import javax.persistence.*
 import javax.validation.constraints.Email
 
+@Entity
 class Ingresso(@field:Enumerated val tipo: Tipo,
                @field:Email val email: String,
-               val sessao: Sessao
+               @ManyToOne val sessao: Sessao
 ) {
 
     @Id

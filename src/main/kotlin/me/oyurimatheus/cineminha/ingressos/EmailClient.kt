@@ -1,13 +1,14 @@
 package me.oyurimatheus.cineminha.ingressos
 
+import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.client.annotation.Client
 
-@Client("/api/email")
+@Client("/api/email") // http://localhost:8080/api/email
 interface EmailClient {
 
     @Post
-    fun envia(emailRequest: EmailRequest)
+    fun envia(@Body emailRequest: EmailRequest)
 }
 
 class EmailRequest(val remetente: String,

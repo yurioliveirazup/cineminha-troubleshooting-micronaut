@@ -3,10 +3,10 @@ micronaut:
     name: cineminhaTroubleshooting
 datasources:
   default:
-    url: jdbc:postgresql://localhost:5433/cineminhas
+    url: jdbc:postgresql://localhost:5432/cineminhas
     driverClassName: org.postgresql.Driver
     username: postgres
-    password: '1234567'
+    password: 'root'
     schema-generate: CREATE_DROP
     dialect: POSTGRES
 jpa.default.properties.hibernate.hbm2ddl.auto: 'create-drop'
