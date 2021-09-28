@@ -8,7 +8,7 @@ import me.oyurimatheus.cineminha.ingressos.EmailRequest
 class EmailController {
     
     @Post
-    fun recebido(email: EmailRequest) {
+    fun recebido(email: String) {
         println(email)
     }
 }
